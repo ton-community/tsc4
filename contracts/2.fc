@@ -3,7 +3,7 @@
   Write the method that multiplies one matrix by another.
   The 1st and 2nd parameter of the function will contain
   a matrix implemented using tuples (eg: [[1,2], [3,4]]).
-  Matrices can be of different sizes, ranging from 4x4
+  Matrices can beferent sizes, ranging from 4x4
   up to 32x32.
   Matrix can be rectangular where matrixA must to be of size n*m & matrixB of size m*p.
   After calculating the result matrix, the function should return final result (as tuple).
