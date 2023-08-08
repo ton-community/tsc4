@@ -1,0 +1,104 @@
+name: TON Smart Challenge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Filter and Archive code
+        run: |
+          mkdir -p contracts_filtered
+          find contracts -type f \( -name '*.fc' -o -name '*.func' \) -exec cp {} contracts_filtered/ \;
+          cd contracts_filtered
+          zip -r ../code.zip .
+        
+      - name: Set GitHub username as an environment variable
+        run: |
+          echo "GITHUB_USERNAME=$(git log -1 --format='%an')" >> $GITHUB_ENV
+
+      - name: Send archive to endpoint and wait for response
+        env:
+          ENDPOINT_URL: "https://submissions.tonsmartchallenge4.com/tsc-4"  # Replace with your actual endpoint URL
+        run: |
+          response=$(curl -s -w "%{http_code}" --max-time 600 -X POST -H "Content-Type: multipart/form-data" -F "file=@code.zip" -F "token=${{secrets.USER_TOKEN}}" -F "github=$GITHUB_USERNAME" $ENDPOINT_URL)
+          status_code=${response: -3}
+
+          # Extracting the JSON response body (excluding the status code)
+          json_response==${response:0:-3}
+
+          echo "$json_response"
+
+          # Storing the JSON response in the response.log file
+          echo "$json_response" > response.log
+          
+          if [ $status_code -eq 200 ]; then
+            echo "Package delivered successfully."
+            echo "::set-output name=success::true"  # Set success to true
+          else
+            echo "Failed to submit TON Smart Challenge solution. Status code: $status_code"
+            
+            # Remove the leading '=' character from the content
+            sanitized_response=$(sed 's/^=//' response.log)
+            
+            error_message=$(echo "$sanitized_response" | jq -r '.error')
+            echo "Error message: $error_message"
+            echo "::set-output name=success::false"  # Set success to false
+            exit 1  # Exit with a non-zero code to mark the action as failed
+          fi
+          sleep 10  # Adjust the wait time as needed
+
+      - name: Problem testing results
+        run: |
+          # Remove the leading '=' character from the content
+          sanitized_response=$(sed 's/^=//' response.log)
+
+          # Extracting the 'minChallangePassed' value from the sanitized JSON response
+          minChallengePassed=$(echo "$sanitized_response" | jq -r '.minChallangePassed')
+
+          # Extracting and displaying details for each problem
+          problems=$(echo "$sanitized_response" | jq -r '.data')
+          num_problems=$(echo "$sanitized_response" | jq -r '.data | length')
+          for i in $(seq 0 $(($num_problems-1))); do
+              passed=$(echo "$problems" | jq -r ".[$i].passed")
+              gasValue=$(echo "$problems" | jq -r ".[$i].gasValue")
+              compiled=$(echo "$problems" | jq -r ".[$i].compiled")
+              points=$(echo "$problems" | jq -r ".[$i].points")
+              compilationError=$(echo "$problems" | jq -r ".[$i].compilationError")
+              echo ""
+              echo "Problem #$((i+1)):"
+              echo "Compiled: $compiled"
+              if [[ -n "$compilationError" && "$compilationError" != "null" ]]; then
+                  echo "CompilationError: $compilationError"
+              fi
+              echo "Passed Tests: $passed"
+              if [[ "$passed" == "true" ]]; then
+                  echo "GasValue: $gasValue"
+                  echo "Points: $points"
+              fi
+          done
+
+
+      - name: Set action status
+        id: status
+        run: |
+          # Remove the leading '=' character from the content
+          sanitized_response=$(sed 's/^=//' response.log)
+
+          # Extracting the 'minChallangePassed' value from the sanitized JSON response
+          minChallengePassed=$(echo "$sanitized_response" | jq -r '.minChallangePassed')
+
+          if [ "$minChallengePassed" == "true" ]; then
+            echo "success=true" >> $GITHUB_ENV  # Set success to true using Environment Files
+          else
+            echo "success=false" >> $GITHUB_ENV  # Set success to false using Environment Files
+            echo "Submission failed"  # Display an error message for failed deployment
+            exit 1  # Exit with a non-zero code to mark the action as failed
+          fi

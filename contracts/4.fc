@@ -1,0 +1,21 @@
+{-
+  TASK 4 - Caesar Cipher
+  Implement a Caesar cipher encryption and decryption functions.
+  The input is a string (https://docs.ton.org/develop/smart-contracts/guidelines/internal-messages#simple-message-with-comment)
+  where the text is encrypted in a cell (after 32bit 00000000 prefix flag), the algorithm rotates the characters and the last ASCII
+  character should go to the beginning. Return new text encoded in cell.
+-}
+
+() recv_internal() {
+}
+
+;; testable
+(cell) caesar_cipher_encrypt(int shift, cell text) method_id {
+  return begin_cell().end_cell();
+}
+
+;; testable
+(cell) caesar_cipher_decrypt(int shift, cell text) method_id {
+  return begin_cell().end_cell();
+}
+
