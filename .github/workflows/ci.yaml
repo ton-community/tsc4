@@ -19,16 +19,12 @@ jobs:
           find contracts -type f \( -name '*.fc' -o -name '*.func' \) -exec cp {} contracts_filtered/ \;
           cd contracts_filtered
           zip -r ../code.zip .
-        
-      - name: Set GitHub username as an environment variable
-        run: |
-          echo "GITHUB_USERNAME=$(git log -1 --format='%an')" >> $GITHUB_ENV
 
       - name: Send archive to endpoint and wait for response
         env:
           ENDPOINT_URL: "https://submissions.tonsmartchallenge4.com/tsc-4"  # Replace with your actual endpoint URL
         run: |
-          response=$(curl -s -w "%{http_code}" --max-time 600 -X POST -H "Content-Type: multipart/form-data" -F "file=@code.zip" -F "token=${{secrets.USER_TOKEN}}" -F "github=$GITHUB_USERNAME" $ENDPOINT_URL)
+          response=$(curl -s -w "%{http_code}" --max-time 600 -X POST -H "Content-Type: multipart/form-data" -F "file=@code.zip" -F "token=${{secrets.USER_TOKEN}}" -F "github=${{github.repository_owner}}" $ENDPOINT_URL)
           status_code=${response: -3}
 
           # Extracting the JSON response body (excluding the status code)
