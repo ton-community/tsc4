@@ -34,8 +34,6 @@ jobs:
           # Extracting the JSON response body (excluding the status code)
           json_response==${response:0:-3}
 
-          echo "$json_response"
-
           # Storing the JSON response in the response.log file
           echo "$json_response" > response.log
           
