@@ -9,7 +9,7 @@
 () recv_internal() {
 }
 
-;; testable
+;; testable okay 
 (cell) find_branch_by_hash(int hash, cell tree) method_id {
   return begin_cell().end_cell();
 }
