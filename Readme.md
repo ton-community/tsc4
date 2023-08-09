@@ -51,34 +51,32 @@ Winners of the contest will receive prizes nominated in TON, the native cryptocu
 
 Participants will be scored based on the following system: each solved problem earns 5 points, and there will be an additional optimization score ranging from 0 to 1 point (where 0 represents an infinite amount of gas spent on the problem, and 1 represents 0 gas spent).
 
-## 📚 Docs
+## 📚 Getting Started with TON
 
-We recommend participants start from here:
-- [Developers Portal](https://ton.org/en/dev)
-- [TON Documentation](https://ton.org/docs)
+For those new to TON development, begin with:
 
-The most relevant places to start in the documentation:
-- [TON concepts](https://ton.org/docs/learn/overviews/TON_blockchain_overview)
-- [Develop Smart Contracts](https://ton.org/docs/develop/smart-contracts/)
+- [Developers Portal](https://ton.org/dev?filterBy=developSmartContract)
+- [TON Documentation](https://docs.ton.org)
+- [Awesome TON Resources](https://github.com/ton-community/awesome-ton)
 
-Additional and detailed information is available in the [whitepapers](https://ton.org/docs/learn/docs).
+Dive deeper into TON with these essential reads:
+- [Understanding TON Concepts](https://docs.ton.org/learn/introduction)
+- [Writing Smart Contracts](https://docs.ton.org/develop/smart-contracts/)
+- [Introduction to FunC](https://docs.ton.org/develop/func/overview)
 
-Examples of standard smart contracts can be found [here](https://github.com/ton-blockchain/ton/tree/master/crypto/smartcont).
+For pre-built smart contract examples, visit [this section](https://docs.ton.org/develop/smart-contracts/examples).
 
-Developer Chats - [@tondev_eng](https://t.me/tondev_eng), [@tondev](https://t.me/tondev).
+Stay updated and join discussions on TON Developer Chats:
+- English: [@tondev_eng](https://t.me/tondev_eng)
+- Chinese: [@tondev_zh](https://t.me/tondev)
+- Russian: [@tondev](https://t.me/tondev)
 
-FunC studying chat - [@ton_learn](https://t.me/ton_learn).
+For FunC learners, join the discussion at [@ton_learn](https://t.me/ton_learn).
 
-Introduction and tutorials for FunC are available here:
-- [FunC Overview](https://ton.org/docs/develop/func/overview)
+## 🛠️ Tools for Compilation and Testing
 
-## 🛠️ How to compile and test
+While we recommend [blueprint](https://github.com/ton-org/blueprint) for working with FunC contracts, [toncli](https://ton.org/docs/develop/smart-contracts/testing/toncli) is also a viable option for compiling and local testing.
 
-We recommend using [blueprint](https://github.com/ton-org/blueprint), but you also can use [toncli](https://ton.org/docs/develop/smart-contracts/testing/toncli) or [ton-contract-executor](https://github.com/Naltox/ton-contract-executor) - open-source tools written by community developers.
+For a more streamlined coding experience, consider using [IDE plugins](https://docs.ton.org/develop/smart-contracts/environment/ide-plugins) for syntax highlighting.
 
-These tools allow you to work with FunC smart contracts, compile them, and run local tests.
-
-If for some reason you don’t want to use the tool, you can use the FunC compiler and Fift scripts [directly](https://ton.org/docs/develop/howto/compile#func).
-
-For syntax highlighting, you can use [IDE plugins](https://ton.org/docs/develop/smart-contracts/environment/ide-plugins).
 
