@@ -77,6 +77,18 @@ For FunC learners, join the discussion at [@ton_learn](https://t.me/ton_learn).
 
 While we recommend [blueprint](https://github.com/ton-org/blueprint) for working with FunC contracts, [toncli](https://ton.org/docs/develop/smart-contracts/testing/toncli) is also a viable option for compiling and local testing.
 
+### Blueprint
+
+Run the following in the terminal to create a new project and choose "A simple counter contract" as an example:
+
+```console
+npm create ton@latest
+```
+
+Read more about writing tests [here](https://github.com/ton-org/sandbox#writing-tests).
+
+### FunC syntax highlight
+
 For a more streamlined coding experience, consider using [IDE plugins](https://docs.ton.org/develop/smart-contracts/environment/ide-plugins) for syntax highlighting.
 
 
