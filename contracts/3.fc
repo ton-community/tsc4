@@ -8,6 +8,10 @@
   strictly up to 128 bits. The method must replace every flag it finds.
   Flag and the value to be replaced is guaranteed to be greater than 0.
   Flag and the value may be of different lengths.
+  When there are overlapping flags, only the first one
+  from the overlap needs to be replaced (for example, if the flag is 101,
+  value is 111, and string is 10101, then the result would be 11101, but if
+  the string is 1010101, then the result would be 1110111).
   Every cell in the input linked list, except for the last one
   (the one that is the deepest in the tree), is guaranteed to be full
   (guaranteed to contain 1023 bits).
