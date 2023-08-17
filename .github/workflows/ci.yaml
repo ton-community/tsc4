@@ -65,11 +65,12 @@ jobs:
               gasValue=$(echo "$problems" | jq -r ".[$i].gasValue")
               compiled=$(echo "$problems" | jq -r ".[$i].compiled")
               points=$(echo "$problems" | jq -r ".[$i].points")
+              order=$(echo "$problems" | jq -r ".[$i].order")
               compilationError=$(echo "$problems" | jq -r ".[$i].compilationError")
               numberOfTests=$(echo "$problems" | jq -r ".[$i].numberOfTests")
               
               echo ""
-              echo "Problem #$((i+1)):"
+              echo "Problem #$((order)):"
               echo "Compiled: $compiled"
               if [[ -n "$compilationError" && "$compilationError" != "null" ]]; then
                   echo "CompilationError: $compilationError"
